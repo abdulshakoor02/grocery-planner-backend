@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize';
-import { env } from '../env';
+import { env } from '../../env';
 
 export const dbAdapter = new Sequelize(
   env.database.dbName,
   env.database.dbUser,
   env.database.dbPassword,
   {
-    logging: true,
+    logging: (msg: string) =>
+      console.log(`[DB] ${new Date().toISOString()} ${msg}`),
     port: env.database.dbPort,
     host: env.database.host,
     dialect: 'postgres',
@@ -15,5 +16,6 @@ export const dbAdapter = new Sequelize(
       min: env.database.min || 0,
       idle: env.database.idle || 10000,
     },
+    benchmark: true, // Enable query timing
   },
 );

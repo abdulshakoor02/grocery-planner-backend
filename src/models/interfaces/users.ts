@@ -4,7 +4,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
 } from 'sequelize';
-import { dbAdapter } from 'src/service/database/database';
+import { dbAdapter } from '../../service/database/database';
 
 const modelDefinition = {
   name: 'users',

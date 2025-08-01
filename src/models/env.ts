@@ -12,6 +12,18 @@ type Env = {
     min: number;
     idle: number;
   };
+  qdrant: {
+    url: string;
+    apiKey: string;
+  };
+  openai: {
+    apiKey: string;
+    baseUrl: string;
+    model: string;
+  };
+  jwt: {
+    secret: string;
+  };
 };
 
 export { Env };
