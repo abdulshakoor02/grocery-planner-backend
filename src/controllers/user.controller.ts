@@ -9,23 +9,8 @@ import {
   Request,
 } from '@nestjs/common';
 import { UserService } from '../service/user/user.service';
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-
-class CreateUserDto {
-  @IsNotEmpty()
-  name: string;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsNotEmpty()
-  mobile: string;
-
-  @IsNotEmpty()
-  @MinLength(6)
-  password: string;
-}
+// import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { CreateUserDto, GetUserDto } from 'src/models';
 
 @Controller('users')
 export class UserController {
@@ -55,11 +40,20 @@ export class UserController {
   }
 
   @Get('profile')
-  getProfile(@Request() req) {
-    return {
-      success: true,
-      message: 'User profile retrieved successfully',
-      data: req.user,
-    };
+  async getProfile(@Body() getUserDto: GetUserDto) {
+    try {
+      const user = await this.userService.getUser(getUserDto.id);
+      return {
+        success: true,
+        message: 'User profile retrieved successfully',
+        data: user,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+        data: null,
+      };
+    }
   }
 }

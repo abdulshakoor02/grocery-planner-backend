@@ -3,6 +3,8 @@ import { UsersModel } from '../../models';
 import { IUsersModel } from '../../models/interfaces/users';
 import * as bcrypt from 'bcrypt';
 import { LoggerService } from '../logger.service';
+import * as messageRepo from '../../repository/messagesRepo/messageHandlers';
+import * as userRepo from '../../repository/userRepo/users';
 
 @Injectable()
 export class UserService {
@@ -150,4 +152,11 @@ export class UserService {
       throw error;
     }
   }
+  public createNewChat = messageRepo.createNewChat;
+  public additionalChat = messageRepo.additionalChat;
+  public chatCount = messageRepo.chatCount;
+  public chatContext = messageRepo.chatContext;
+  public chatForToday = messageRepo.chatForToday;
+  public chatForMonth = messageRepo.chatForMonth;
+  public getUser = userRepo.getUser;
 }
